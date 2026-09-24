@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Admin — Cantinho do Churrasco</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Painel de Gestão do Restaurante</h1>
+        <p>Salão, reservas e cadastros em um só lugar</p>
+        <div class="divisor-espeto" aria-hidden="true"></div>
+    </header>
+
+    <nav>
+        <a href="index.html">Início</a>
+        <a href="cardapio.html">Cardápio</a>
+        <a href="reservas.html">Reservas</a>
+        <a href="sobre.html">Quem Somos & Contato</a>
+        <a href="admin.html" aria-current="page" class="nav-admin">Painel Admin</a>
+    </nav>
+
+    <main>
+        <section class="admin-operacao-section">
+            <h2>Controle de Salão e Capacidade</h2>
+            <div class="controle-salao-grid">
+                <div class="status-casa-box">
+                    <p>Status Atual do Salão:</p>
+                    <span id="statusCasaBadge" class="status-casa aberto">ABERTO PARA RESERVAS</span>
+                    <div class="botoes-status">
+                        <button onclick="alterarStatusCasa('ABERTO PARA RESERVAS')">Abrir Reservas</button>
+                        <button onclick="alterarStatusCasa('LOTADO / FILA DE ESPERA')">Marcar Lotado</button>
+                        <button onclick="alterarStatusCasa('FECHADO')">Fechar Reservas</button>
+                    </div>
+                </div>
+
+                <div class="meta-financeira-box">
+                    <p>Preço do Rodízio / Pessoa:</p>
+                    <div class="input-preco-container">
+                        <span>R$</span>
+                        <input type="number" id="valorRodizio" value="89.90" step="0.50" oninput="atualizarPainel()">
+                    </div>
+                    <small>Usado para calcular a projeção de faturamento.</small>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Métricas do Dia</h2>
+            <div class="admin-cards-grid">
+                <div class="admin-card">
+                    <h3>Total de Reservas</h3>
+                    <p class="admin-numero" id="qtdTotal">0</p>
+                </div>
+                <div class="admin-card">
+                    <h3>Confirmadas</h3>
+                    <p class="admin-numero verde" id="qtdConfirmadas">0</p>
+                </div>
+                <div class="admin-card">
+                    <h3>Pessoas Confirmadas</h3>
+                    <p class="admin-numero dourado" id="qtdPessoas">0</p>
+                </div>
+                <div class="admin-card destaque-faturamento">
+                    <h3>Projeção de Faturamento</h3>
+                    <p class="admin-numero verde" id="faturamentoEstimado">R$ 0,00</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Atenção Especial no Salão</h2>
+            <ul id="listaAtencaoEspecial" class="lista-especial"></ul>
+        </section>
+
+        <section id="avisoFechado" class="banner-aviso erro" style="display:none;">
+            O salão está marcado como FECHADO no momento. Reabra as reservas acima para poder cadastrar novos clientes.
+        </section>
+
+        <section>
+            <h2>Nova Reserva</h2>
+            <p>Cadastre reservas feitas por telefone ou presencialmente.</p>
+
+            <form id="cadastroForm" novalidate>
+                <div class="linha-campos">
+                    <div class="campo">
+                        <label for="cNome">Nome do Cliente*</label>
+                        <input type="text" id="cNome" minlength="3" maxlength="60" required>
+                    </div>
+                    <div class="campo">
+                        <label for="cTelefone">Telefone / WhatsApp*</label>
+                        <input type="tel" id="cTelefone" placeholder="(11) 99999-9999" required>
+                    </div>
+                </div>
+
+                <div class="linha-campos">
+                    <div class="campo">
+                        <label for="cEmail">E-mail (opcional)</label>
+                        <input type="text" id="cEmail" placeholder="cliente@email.com">
+                    </div>
+                    <div class="campo">
+                        <label for="cMesa">Mesa*</label>
+                        <select id="cMesa" required>
+                            <option value="">Selecione a mesa</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="linha-campos">
+                    <div class="campo">
+                        <label for="cData">Data*</label>
+                        <input type="date" id="cData" required>
+                    </div>
+                    <div class="campo">
+                        <label for="cHorario">Horário*</label>
+                        <select id="cHorario" required>
+                            <option value="">Selecione o horário</option>
+                            <option value="11:30">11:30</option>
+                            <option value="12:30">12:30</option>
+                            <option value="13:30">13:30</option>
+                            <option value="19:00">19:00</option>
+                            <option value="20:00">20:00</option>
+                            <option value="21:00">21:00</option>
+                        </select>
+                    </div>
+                    <div class="campo">
+                        <label for="cPessoas">Pessoas*</label>
+                        <input type="number" id="cPessoas" min="1" max="30" value="2" required>
+                    </div>
+                </div>
+
+                <div class="campo campo-checkbox">
+                    <input type="checkbox" id="cAniversario">
+                    <label for="cAniversario">É um aniversário ou data comemorativa</label>
+                </div>
+
+                <div class="campo" id="campoAniversarianteAdmin" style="display:none;">
+                    <label for="cNomeAniversariante">Nome do(a) Homenageado(a)*</label>
+                    <input type="text" id="cNomeAniversariante" placeholder="Ex: Maria Souza">
+                </div>
+
+                <div class="campo">
+                    <label for="cObs">Observações (máx. 200 caracteres)</label>
+                    <textarea id="cObs" maxlength="200"></textarea>
+                    <span class="dica" id="contadorObs">0/200 caracteres</span>
+                </div>
+
+                <div class="campo">
+                    <label for="cStatusInicial">Status inicial*</label>
+                    <select id="cStatusInicial" required>
+                        <option value="Pendente">Pendente</option>
+                        <option value="Confirmado">Confirmado</option>
+                    </select>
+                </div>
+
+                <button type="submit">Cadastrar Reserva</button>
+                <div id="cadastroResposta" class="banner-aviso" style="display:none;"></div>
+            </form>
+        </section>
+
+        <section>
+            <h2>Consulta e Gestão de Reservas</h2>
+            <div class="linha-campos">
+                <div class="campo">
+                    <label for="buscaTexto">Nome ou telefone</label>
+                    <input type="text" id="buscaTexto" placeholder="Digite para buscar...">
+                </div>
+                <div class="campo">
+                    <label for="filtroStatus">Status</label>
+                    <select id="filtroStatus">
+                        <option value="todos">Todos</option>
+                        <option value="Pendente">Pendente</option>
+                        <option value="Confirmado">Confirmado</option>
+                        <option value="Cancelado">Cancelado</option>
+                    </select>
+                </div>
+                <div class="campo">
+                    <label for="filtroData">Data</label>
+                    <input type="date" id="filtroData">
+                </div>
+            </div>
+            <button type="button" id="btnLimparFiltros" class="btn-secundario">Limpar Filtros</button>
+            <p id="contadorResultados" class="dica"></p>
+
+            <div class="tabela-container">
+                <table class="tabela-admin">
+                    <thead>
+                        <tr>
+                            <th>Cliente / Contato</th>
+                            <th>Mesa</th>
+                            <th>Data e Hora</th>
+                            <th>Pessoas</th>
+                            <th>Observações</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabelaConsultaBody"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="painelEdicao" style="display:none;">
+            <h2>Editar Reserva</h2>
+            <form id="editarForm" novalidate>
+                <input type="hidden" id="eId">
+                <div class="linha-campos">
+                    <div class="campo">
+                        <label for="eNome">Nome do Cliente*</label>
+                        <input type="text" id="eNome" minlength="3" maxlength="60" required>
+                    </div>
+                    <div class="campo">
+                        <label for="eTelefone">Telefone*</label>
+                        <input type="tel" id="eTelefone" required>
+                    </div>
+                </div>
+                <div class="linha-campos">
+                    <div class="campo">
+                        <label for="eData">Data*</label>
+                        <input type="date" id="eData" required>
+                    </div>
+                    <div class="campo">
+                        <label for="eHorario">Horário*</label>
+                        <select id="eHorario" required>
+                            <option value="11:30">11:30</option>
+                            <option value="12:30">12:30</option>
+                            <option value="13:30">13:30</option>
+                            <option value="19:00">19:00</option>
+                            <option value="20:00">20:00</option>
+                            <option value="21:00">21:00</option>
+                        </select>
+                    </div>
+                    <div class="campo">
+                        <label for="ePessoas">Pessoas*</label>
+                        <input type="number" id="ePessoas" min="1" max="30" required>
+                    </div>
+                    <div class="campo">
+                        <label for="eMesa">Mesa*</label>
+                        <select id="eMesa" required>
+                            <option value="">Selecione a mesa</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="campo">
+                    <label for="eObs">Observações (máx. 200)</label>
+                    <textarea id="eObs" maxlength="200"></textarea>
+                </div>
+                <div class="campo">
+                    <label for="eStatus">Status*</label>
+                    <select id="eStatus" required>
+                        <option value="Pendente">Pendente</option>
+                        <option value="Confirmado">Confirmado</option>
+                        <option value="Cancelado">Cancelado</option>
+                    </select>
+                </div>
+                <button type="submit">Salvar Alterações</button>
+                <button type="button" id="btnCancelarEdicao" class="btn-secundario">Cancelar</button>
+                <div id="edicaoResposta" class="banner-aviso" style="display:none;"></div>
+            </form>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

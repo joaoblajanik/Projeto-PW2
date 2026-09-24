@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quem Somos e Contato — Cantinho do Churrasco</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Quem Somos & Contato</h1>
+        <p>Conheça nossa história, localizaçāo e entre em contato conosco</p>
+        <div class="divisor-espeto" aria-hidden="true"></div>
+    </header>
+
+    <nav>
+        <a href="index.html">Início</a>
+        <a href="cardapio.html">Cardápio</a>
+        <a href="reservas.html">Reservas</a>
+        <a href="sobre.html" aria-current="page">Quem Somos & Contato</a>
+        <a href="admin.html" class="nav-admin">Painel Admin</a>
+    </nav>
+
+    <main>
+        <!-- SEÇÃO: Nossa História -->
+        <section>
+            <h2>Nossa História</h2>
+            <p>O Cantinho do Churrasco nasceu do sonho de reunir amigos ao redor do fogo para celebrar os bons momentos da vida. O que começou como reuniões de fim de semana se transformou em uma churrascaria de rodízio dedicada a entregar cortes autênticos e de altíssima qualidade.</p>
+        </section>
+
+        <!-- SEÇÃO: Informações de Contato -->
+        <section>
+            <h2>Fale Conosco e Endereço</h2>
+            <ul class="info-contato">
+                <li>
+                    <strong>Endereço:</strong> Rua dos Braseiros, 450 — Centro, Poá - SP
+                </li>
+                <li>
+                    <strong>Telefone / WhatsApp:</strong> (11) 99888-7766
+                </li>
+                <li>
+                    <strong>E-mail:</strong> contato@cantinhodochurrasco.com.br
+                </li>
+            </ul>
+        </section>
+
+        <!-- SEÇÃO: Horário de Funcionamento -->
+        <section>
+            <h2>Horário de Funcionamento</h2>
+            <ul>
+                <li><strong>Terça a Sexta:</strong> 11:30 às 15:00 e 18:30 às 23:00</li>
+                <li><strong>Sábados e Domingos:</strong> 11:30 às 23:30</li>
+                <li><strong>Segunda-feira:</strong> Fechado para descanso da equipe</li>
+            </ul>
+        </section>
+
+        <!-- SEÇÃO: Mensagem Rápida -->
+        <section>
+            <h2>Envie uma Mensagem de Dúvida</h2>
+            <form id="contatoDiretoForm" novalidate>
+                <div class="linha-campos">
+                    <div class="campo">
+                        <label for="nomeMensagem">Seu Nome*</label>
+                        <input type="text" id="nomeMensagem" required placeholder="Digite seu nome">
+                    </div>
+                    <div class="campo">
+                        <label for="emailMensagem">Seu E-mail ou WhatsApp*</label>
+                        <input type="text" id="emailMensagem" required placeholder="Contato para resposta">
+                    </div>
+                </div>
+                <div class="campo">
+                    <label for="textoMensagem">Sua Mensagem*</label>
+                    <textarea id="textoMensagem" required placeholder="Escreva sua dúvida aqui..."></textarea>
+                </div>
+                <button type="submit">Enviar Mensagem</button>
+                <p id="contatoResposta" role="status"></p>
+            </form>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>

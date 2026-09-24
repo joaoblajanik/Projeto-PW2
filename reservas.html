@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faça sua Reserva — Cantinho do Churrasco</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Reserva de Mesas</h1>
+        <p>Garanta o seu lugar no nosso rodízio sem pegar filas</p>
+        <div class="divisor-espeto" aria-hidden="true"></div>
+    </header>
+
+    <nav>
+        <a href="index.html">Início</a>
+        <a href="cardapio.html">Cardápio</a>
+        <a href="reservas.html" aria-current="page">Reservas</a>
+        <a href="sobre.html">Quem Somos & Contato</a>
+        <a href="admin.html" class="nav-admin">Painel Admin</a>
+    </nav>
+
+    <main>
+        <section>
+            <h2>Agende sua Visita</h2>
+            <p>Preencha os dados abaixo para pré-agendar sua mesa. Entraremos em contato via WhatsApp para confirmar.</p>
+
+            <form id="reservaForm" novalidate>
+                <div class="linha-campos">
+                    <div class="campo">
+                        <label for="nome">Seu Nome Completo*</label>
+                        <input type="text" id="nome" name="nome" placeholder="Digite seu nome" required>
+                        <small id="erroNome" class="erro-Campo"></small>
+                    </div>
+
+                    <div class="campo">
+                        <label for="telefone">Telefone / WhatsApp*</label>
+                        <input type="tel" id="telefone" name="telefone" placeholder="(11) 99999-9999" required>
+                    </div>
+                </div>
+
+                <fieldset>
+                    <legend>Detalhes da Reserva</legend>
+
+                    <div class="linha-campos">
+                        <div class="campo">
+                            <label for="dataReserva">Data da visita*</label>
+                            <input type="date" id="dataReserva" name="dataReserva" required>
+                        </div>
+
+                        <div class="campo">
+                            <label for="horarioReserva">Horário*</label>
+                            <select id="horarioReserva" name="horarioReserva">
+                                <optgroup label="Almoço">
+                                    <option value="11:30">11:30</option>
+                                    <option value="12:30">12:30</option>
+                                    <option value="13:30">13:30</option>
+                                </optgroup>
+                                <optgroup label="Jantar">
+                                    <option value="19:00">19:00</option>
+                                    <option value="20:00">20:00</option>
+                                    <option value="21:00">21:00</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="campo">
+                        <label for="pessoasReserva">Número de pessoas no rodízio</label>
+                        <div class="contador-pessoas">
+                            <button type="button" id="btnMenos" aria-label="Diminuir número de pessoas">–</button>
+                            <input type="number" id="pessoasReserva" name="pessoasReserva" min="1" max="30" value="2" readonly>
+                            <button type="button" id="btnMais" aria-label="Aumentar número de pessoas">+</button>
+                        </div>
+                        <span class="dica">(Crianças até 6 anos não contam no rodízio.)</span>
+                    </div>
+
+                    <div class="campo campo-checkbox">
+                        <input type="checkbox" id="ocasiaoEspecial" name="ocasiaoEspecial">
+                        <label for="ocasiaoEspecial">É um aniversário ou data comemorativa</label>
+                    </div>
+
+                    <div class="campo" id="campoAniversariante">
+                        <label for="nomeAniversariante">Nome do(a) Homenageado(a)</label>
+                        <input type="text" id="nomeAniversariante" name="nomeAniversariante" placeholder="Ex: Maria Souza">
+                    </div>
+                </fieldset>
+
+                <div class="campo">
+                    <label for="observacoes">Observações ou Preferências de Mesa</label>
+                    <textarea id="observacoes" name="observacoes" placeholder="Cadeira de bebê, preferência por mesa perto da janela, etc."></textarea>
+                </div>
+
+                <button type="submit">Confirmar Reserva</button>
+                <p id="formResposta" role="status"></p>
+            </form>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>

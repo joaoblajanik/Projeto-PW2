@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contato e Reservas — Cantinho do Churrasco</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Fale Conosco e Reservas</h1>
+        <p>Tire suas dúvidas ou garanta a sua mesa no rodízio</p>
+        <div class="divisor-espeto" aria-hidden="true"></div>
+    </header>
+
+    <nav>
+        <a href="index.html">Início</a>
+        <a href="cardapio.html">Cardápio</a>
+        <a href="sobre.html">Quem Somos</a>
+        <a href="contato.html" aria-current="page">Contato</a>
+    </nav>
+
+    <main>
+        <section>
+            <h2>Informações de Contato</h2>
+            <p>Estamos sempre prontos para atender você e garantir que sua experiência conosco seja incrível.</p>
+            <ul class="info-contato">
+                <li>
+                    <svg class="icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.4"/></svg>
+                    <span><strong>Endereço:</strong> Rua dos Braseiros, 450 — Centro</span>
+                </li>
+                <li>
+                    <svg class="icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5c0 8.3 6.7 15 15 15l3-3.5-5-3-2 2a13 13 0 0 1-6.5-6.5l2-2-3-5L4 5Z"/></svg>
+                    <span><strong>Telefone / WhatsApp:</strong> (11) 99888-7766</span>
+                </li>
+                <li>
+                    <svg class="icone" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 6 8 7 8-7"/></svg>
+                    <span><strong>E-mail:</strong> contato@cantinhodochurrasco.com.br</span>
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Envie sua Mensagem ou Agende sua Mesa</h2>
+
+            <!-- Formulário simples, em HTML puro, validado com JavaScript
+                 no script.js. Nada de bibliotecas externas. -->
+            <form id="contatoForm" novalidate>
+
+                <div class="campo">
+                    <label for="tipoAtendimento">O que você deseja fazer?</label>
+                    <select id="tipoAtendimento">
+                        <option value="reserva" selected>Reservar mesa no rodízio</option>
+                        <option value="mensagem">Enviar dúvida / mensagem</option>
+                    </select>
+                </div>
+
+                <div class="linha-campos">
+                    <div class="campo">
+                        <label for="nome">Seu nome*</label>
+                        <input type="text" id="nome" name="nome" placeholder="Como podemos te chamar?" required>
+                    </div>
+
+                    <div class="campo">
+                        <label for="telefone">Telefone / WhatsApp*</label>
+                        <input type="tel" id="telefone" name="telefone" placeholder="(11) 99999-9999" required>
+                    </div>
+                </div>
+
+                <!-- Campos que só aparecem quando a pessoa escolhe "Reservar mesa" -->
+                <fieldset id="camposReserva">
+                    <legend>Detalhes da reserva</legend>
+
+                    <div class="linha-campos">
+                        <div class="campo">
+                            <label for="dataReserva">Data da visita*</label>
+                            <input type="date" id="dataReserva" name="dataReserva">
+                        </div>
+
+                        <div class="campo">
+                            <label for="horarioReserva">Horário*</label>
+                            <select id="horarioReserva" name="horarioReserva">
+                                <optgroup label="Almoço">
+                                    <option value="11:30">11:30</option>
+                                    <option value="12:30">12:30</option>
+                                    <option value="13:30">13:30</option>
+                                </optgroup>
+                                <optgroup label="Jantar">
+                                    <option value="19:00">19:00</option>
+                                    <option value="20:00">20:00</option>
+                                    <option value="21:00">21:00</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="campo">
+                        <label for="pessoasReserva">Número de pessoas no rodízio</label>
+                        <div class="contador-pessoas">
+                            <button type="button" id="btnMenos" aria-label="Diminuir número de pessoas">–</button>
+                            <input type="number" id="pessoasReserva" name="pessoasReserva" min="1" max="30" value="2" inputmode="numeric" aria-live="polite">
+                            <button type="button" id="btnMais" aria-label="Aumentar número de pessoas">+</button>
+                        </div>
+                        <span class="dica">Crianças até 6 anos não contam no rodízio.</span>
+                    </div>
+
+                    <div class="campo campo-checkbox">
+                        <input type="checkbox" id="ocasiaoEspecial" name="ocasiaoEspecial">
+                        <label for="ocasiaoEspecial">É um aniversário ou data comemorativa</label>
+                    </div>
+
+                    <div class="campo" id="campoAniversariante">
+                        <label for="nomeAniversariante">Nome do(a) homenageado(a)*</label>
+                        <input type="text" id="nomeAniversariante" name="nomeAniversariante" placeholder="Opcional">
+                    </div>
+                </fieldset>
+
+                <div class="campo">
+                    <label for="mensagem">Mensagem ou observações</label>
+                    <textarea id="mensagem" name="mensagem" placeholder="Alguma restrição alimentar, preferência de mesa ou dúvida? Escreva aqui." required></textarea>
+                </div>
+
+                <button type="submit">Enviar Solicitação</button>
+
+                <p id="formResposta" role="status"></p>
+            </form>
+        </section>
+
+        <section>
+            <h2>Horário de Funcionamento</h2>
+            <ul>
+                <li><strong>Terça a Sexta:</strong> 11:30 às 15:00 e 18:30 às 23:00</li>
+                <li><strong>Sábados e Domingos:</strong> 11:30 às 23:30</li>
+                <li><strong>Segunda-feira:</strong> Fechado para descanso da equipe</li>
+            </ul>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
